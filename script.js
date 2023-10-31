@@ -96,22 +96,48 @@ var upperCasedCharacters = [
 //* Special characters ($@%&*, etc) 
 
 // ask question of what the user want and return each options
-function getPasswordOptions() {
+function getPasswordOptions() { 
+  var size = window.prompt ('how long should the password be?')
   var lowercase = window.confirm ("Do you want lowercase?")
   var uppercase = window.confirm ("Do you want uppercase?")
   var numericcase = window.confirm ("Do you want numericcase?")
   var specialcharacter = window.confirm ("Do you want specialcharacter?")
-  return { lowercase, uppercase, numericcase, specialcharacter}
+  return { lowercase, uppercase, numericcase, specialcharacter,size}
 }
 
 // Function for getting a random element from an array
 function getRandom(arr) {
+var position = Math.floor(Math.random() * arr.length)
+return arr[position]
 
 }
 
+//At least 8 characters but no more than 128. window.confirm
 // Function to generate password with user input
 function generatePassword() {
+  var options = getPasswordOptions ()
+  // options.size
+  var chars = [];
+  if (options.lowercase)
+  
+  chars = chars.concat ( lowerCasedCharacters)
 
+  if (options.uppercase)
+  chars = chars.concat ( upperCasedCharacters)
+
+  if (options.numericcase)
+  chars = chars.concat (numericCharacters)
+
+  if (options.specialcharacter)
+  chars = chars.concat ( specialCharacters)
+
+  var string = ""
+
+  for ( var i = 0; i < options.size; i++ ){
+    string = string + getRandom (chars)
+
+}
+return string
 }
 
 // Get references to the #generate element
@@ -127,3 +153,4 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword);
+
